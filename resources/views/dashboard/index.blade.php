@@ -19,6 +19,8 @@
                 <br>
                 Время выполнения: {{ $task->category->time }}
                 <br>
+                Начало выполнения: {{ $task->started_at }}
+                <br>
                 <a href="{{ route('taskUser.show', [$task->id]) }}">Подробнее</a>
             </li>
             <br>

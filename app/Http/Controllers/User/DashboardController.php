@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $user = Auth::user();
         $name = $user->name;
 
-        $currentTasks = User::find($user->id)->tasks;
+        $currentTasks = User::find($user->id)->tasks->whereNull('done_at');
         return view('dashboard.index', compact('name', 'currentTasks'));
     }
 

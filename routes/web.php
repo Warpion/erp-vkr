@@ -29,15 +29,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
 
 Route::get('/admin', 'Admin\MainController@index')->middleware('admin')->name('admin');
 
-Route::get('/register', 'UserController@create')->name('user.create');
-Route::post('/register', 'UserController@store')->name('user.store');
+Route::group(['middleware' => 'login'], function() {
+    Route::get('/register', 'UserController@create')->name('user.create');
+    Route::post('/register', 'UserController@store')->name('user.store');
 
-Route::get('/login', 'UserController@loginForm')->name('login.create');
-Route::post('/login', 'UserController@login')->name('login');
+    Route::get('/login', 'UserController@loginForm')->name('login.create');
+    Route::post('/login', 'UserController@login')->name('login');
+});
 
-Route::get('/logout', 'UserController@logout')->name('logout');
 
-Route::group(['namespace' => 'User', 'middleware' => 'admin'], function() {
+Route::get('/logout', 'UserController@logout')->name('logout')->middleware('logout');
+
+Route::group(['namespace' => 'User', 'middleware' => 'user'], function() {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('/dashboard/tasks', 'DashboardController@task')->name('dashboard.tasks');
     Route::get('/dashboard/tasks/{id}','TaskUserController@show')
@@ -45,7 +48,7 @@ Route::group(['namespace' => 'User', 'middleware' => 'admin'], function() {
 
     Route::patch('/dashboard/tasks/{id}/order', 'TaskUserController@orderTask')->name('taskUser.orderTask');
     Route::patch('/dashboard/tasks/{id}/start', 'TaskUserController@startTask')->name('taskUser.startTask')->middleware('task.access');
-    Route::patch('/dashboard/tasks/{id}/done', 'TaskUserController@startTask')->name('taskUser.doneTask')->middleware('task.access');
+    Route::patch('/dashboard/tasks/{id}/done', 'TaskUserController@doneTask')->name('taskUser.doneTask')->middleware('task.access');
 });
 
 
