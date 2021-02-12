@@ -46,5 +46,23 @@ class UserSeeder extends Seeder
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
+        DB::table('users')->insert([
+            'name' => 'test1',
+            'email' => 'test1@admin.com',
+            'password' => bcrypt('123'),
+            'role' => 3,
+            'rating' => 1000,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+        DB::table('users')->insert([
+            'name' => 'test2',
+            'email' => 'test2@admin.com',
+            'password' => bcrypt('123'),
+            'role' => 3,
+            'rating' => 1100,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
     }
 }

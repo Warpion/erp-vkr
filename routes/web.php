@@ -25,12 +25,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
     Route::post('/projects/{id}/addTask', 'TaskController@store')->name('tasks.store');
 
     Route::resource('/categories', 'CategoryController');
+
+    Route::get('/task-check', 'TaskCheckController@index')->name('task.check');
+
+    Route::patch('/task-check/{id}/accept', 'TaskCheckController@accept')->name('task.accept');
+    Route::patch('/task-check/{id}/decline', 'TaskCheckController@decline')->name('task.decline');
+    Route::patch('/task-check/{id}/restart', 'TaskCheckController@restart')->name('task.restart');
 });
 
 Route::get('/admin', 'Admin\MainController@index')->middleware('admin')->name('admin');
 
 Route::group(['middleware' => 'login'], function() {
-    Route::get('/register', 'UserController@create')->name('user.create');
+    Route::get('/register', 'UserController@create')->name('register');
     Route::post('/register', 'UserController@store')->name('user.store');
 
     Route::get('/login', 'UserController@loginForm')->name('login.create');

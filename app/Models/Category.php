@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable = ['title', 'price', 'time', 'rating'];
+    protected $fillable = ['title', 'price', 'time', 'time_avg', 'rating', 'tasks_complete'];
 
     public function tasks()
     {
@@ -16,6 +16,10 @@ class Category extends Model
     public function setTimeAttribute($value)
     {
         $this->attributes['time'] = strtotime($value, 0);
+    }
+    public function setTimeAvgAttribute($value)
+    {
+        $this->attributes['time_avg'] = strtotime($value, 0);
     }
 
     public function getTimeAttribute($value)

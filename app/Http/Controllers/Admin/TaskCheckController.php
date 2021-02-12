@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller
+class TaskCheckController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,19 +15,41 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $name = $user->name;
-
-        $currentTasks = User::find($user->id)->tasks->whereNull('done_at')->where('accept', '<>', 1);
-        return view('dashboard.index', compact('name', 'currentTasks'));
+        $tasks = Task::query()->whereNotNull('done_at')->whereNull('accept')->with('user')->get();
+        return view('task.check', compact('tasks'));
     }
 
-    public function task(Task $task)
+
+    public function accept($id)
     {
-        $tasks = $task->getTasks();
-        return view('dashboard.task.index', compact('tasks'));
+        $task = Task::query()->find($id);
+        $task->update(['accept' => 1]);
+        return redirect()->route('task.check');
     }
 
+
+    public function decline($id)
+    {
+        $task = Task::query()->find($id);
+        $task->update(['accept' => 0]);
+        return redirect()->route('task.check');
+    }
+
+    public function restart($id)
+    {
+        $task = Task::query()->find($id);
+        $task->update(['accept' => 0]);
+
+        Task::query()->create([
+            'title' => $task ->title,
+            'description' => $task->description,
+            'category_id' => $task->category_id,
+            'project_id' => $task->project_id,
+            'order' => $task->order,
+        ]);
+
+        return redirect()->route('task.check');
+    }
 
     /**
      * Show the form for creating a new resource.

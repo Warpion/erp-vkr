@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('price');
             $table->integer('rating');
             $table->integer('time');
+            $table->integer('time_avg')->default(0);
             $table->integer('tasks_complete')->default(0);
             $table->timestamps();
         });

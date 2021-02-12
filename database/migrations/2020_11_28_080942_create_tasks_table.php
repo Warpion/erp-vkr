@@ -23,6 +23,7 @@ class CreateTasksTable extends Migration
             $table->dateTime('started_at')->nullable();
             $table->integer('user_id')->nullable();
             $table->smallInteger('order')->default(0);
+            $table->boolean('accept')->nullable();
             $table->timestamps();
         });
     }
