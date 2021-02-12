@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Task extends Model
 {
@@ -28,6 +30,19 @@ class Task extends Model
     }
     public function getTasks()
     {
-        return $this::whereNull('user_id')->get();
+        $userRating = Auth::user()->rating;
+//        dd($this::query()->whereNull('user_id')
+//            ->join('categories','categories.id', '=', 'tasks.category_id')
+//            ->whereBetween('rating', [$userRating - 200, $userRating + 200])
+//            ->orWhere('tasks.created_at', '<', Carbon::now()->subHours(1)->toDateTimeString() )
+//            ->whereNull('user_id')
+//            ->get()
+//        , Carbon::now()->subHours(1)->toDateTimeString(), Carbon::now()->toDateTimeString());
+        return $this::query()->whereNull('user_id')
+            ->join('categories','categories.id', '=', 'tasks.category_id')
+            ->whereBetween('rating', [$userRating - 200, $userRating + 200])
+            ->orWhere('tasks.created_at', '<', Carbon::now()->subHours(1)->toDateTimeString() )
+            ->whereNull('user_id')
+            ->get();
     }
 }

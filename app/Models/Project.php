@@ -24,7 +24,9 @@ class Project extends Model
             if($item->tasks_complete > 9){
                 $totalTime += $item->time_avg;
             }
-            $totalTime += $item->time;
+            else {
+                $totalTime += $item->time;
+            }
         }
         return gmdate('H:i:s', $totalTime);
     }
