@@ -11,7 +11,7 @@ class Task extends Model
     protected $fillable = [
         'title', 'description', 'category_id',
         'project_id', 'user_id', 'order',
-        'started_at', 'done_at', 'accept'
+        'started_at', 'done_at', 'accept',
     ];
 
     public function project()
@@ -31,18 +31,33 @@ class Task extends Model
     public function getTasks()
     {
         $userRating = Auth::user()->rating;
-//        dd($this::query()->whereNull('user_id')
-//            ->join('categories','categories.id', '=', 'tasks.category_id')
-//            ->whereBetween('rating', [$userRating - 200, $userRating + 200])
-//            ->orWhere('tasks.created_at', '<', Carbon::now()->subHours(1)->toDateTimeString() )
-//            ->whereNull('user_id')
-//            ->get()
-//        , Carbon::now()->subHours(1)->toDateTimeString(), Carbon::now()->toDateTimeString());
-        return $this::query()->whereNull('user_id')
+
+        $tasks = $this::query()
+            ->select('categories.rating', 'categories.price',
+                'tasks.created_at', 'categories.max_rating', 'tasks.title', 'tasks.user_id', 'tasks.id', 'projects.urgency')
             ->join('categories','categories.id', '=', 'tasks.category_id')
+            ->join('projects', 'projects.id', '=', 'tasks.project_id')
+
+
             ->whereBetween('rating', [$userRating - 200, $userRating + 200])
+            ->where('max_rating', '>', $userRating)
+            ->whereNull('tasks.user_id')
+
             ->orWhere('tasks.created_at', '<', Carbon::now()->subHours(1)->toDateTimeString() )
-            ->whereNull('user_id')
+            ->where('max_rating', '>', $userRating)
+            ->whereNull('tasks.user_id')
+
+            ->orWhere('tasks.created_at', '<', Carbon::now()->subHours(1)->toDateTimeString() )
+            ->where('max_rating', '=', 0)
+            ->whereNull('tasks.user_id')
+
+            ->orderBy('projects.urgency')
             ->get();
+
+        foreach ($tasks as $key => $task) {
+            $tasks[$key]['setPrice'] = setTaskPrice($task->rating, $task->price, $userRating, $task->urgency);
+        }
+
+        return $tasks;
     }
 }

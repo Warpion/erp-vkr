@@ -41,6 +41,7 @@ class CategoryController extends MainController
             'title' => $request->title,
             'price' => $request->price,
             'rating' => $request->rating,
+            'max_rating' => $request->max_rating,
             'time'  => $request->time,
         ]);
         return redirect()->route('categories.index');

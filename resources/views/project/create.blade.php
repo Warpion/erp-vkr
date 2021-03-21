@@ -12,6 +12,13 @@
     <form action="{{ route('projects.store') }}" method="post">
         @csrf
         <input type="text" name="title" placeholder="Название проекта" required>
+        <br><br>
+        <select name="urgency" placeholder="Приоритет проекта">
+            <option value="1">Высокий</option>
+            <option value="2">Повышенный</option>
+            <option value="3" selected>Обычный</option>
+        </select>
+        <br><br>
         <button type="submit">Создать новый проект</button>
     </form>
 </body>

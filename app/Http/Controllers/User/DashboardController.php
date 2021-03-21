@@ -27,6 +27,7 @@ class DashboardController extends Controller
     public function task(Task $task)
     {
         $tasks = $task->getTasks();
+
         return view('dashboard.task.index', compact('tasks'));
     }
 

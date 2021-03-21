@@ -17,7 +17,7 @@
     </ul>
 @endif
 
-<h2>Добавление задания к проекту: {{ $task->title }}</h2>
+<h2>Добавление задания к проекту: {{ $projectTitle }}</h2>
 <form action="{{ route('tasks.store', ['id' => $id]) }}" method="post">
     @csrf
     <input type="text" name="title" placeholder="Название">

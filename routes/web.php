@@ -23,6 +23,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
 
     Route::get('/projects/{id}/addTask', 'TaskController@create')->name('tasks.create');
     Route::post('/projects/{id}/addTask', 'TaskController@store')->name('tasks.store');
+    Route::get('/projects/{id}/edit-project', 'TaskController@editProject')->name('project.editProject');
 
     Route::resource('/categories', 'CategoryController');
 

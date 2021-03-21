@@ -16,14 +16,16 @@
         @csrf
         <button type="submit">Удалить проект со всеми заданиями</button>
     </form>
-    <br>
+    <br><br>
+    <a href="{{ route('project.editProject', [$project->id]) }}">Редактировать проект</a>
+    <br><br>
     <a href="{{ route('tasks.create', [$project->id]) }}">Добавить задание</a>
     <ul>
         @foreach($project->tasks as $task)
             <li>
                 <h3>{{ $task->title }}</h3>
                 <p>{{ $task->description }}</p>
-                <p>{{ $task->category->time }}</p>
+                <p>{{ $task->time }}</p>
                 <a href="{{ route('tasks.edit', [$task->id]) }}">Редактировать</a>
             </li>
         @endforeach

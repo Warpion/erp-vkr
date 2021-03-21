@@ -17,6 +17,7 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('title');
+            $table->tinyInteger('urgency');
             $table->dateTime('done_at')->nullable();
             $table->timestamps();
         });

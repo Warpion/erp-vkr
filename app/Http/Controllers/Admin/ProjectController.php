@@ -39,9 +39,11 @@ class ProjectController extends MainController
     {
         $request->validate([
             'title' => 'required|max:255',
+            'urgency' => 'required|digits_between:1,3',
         ]);
         $project = new Project([
             'title' => $request->title,
+            'urgency' => $request->urgency,
             'user_id' => Auth::user()->id,
         ]);
         $project->save();
@@ -69,8 +71,30 @@ class ProjectController extends MainController
     public function edit($id)
     {
         $project =  Project::findOrFail($id);
+        $tasks = $project->tasks;
+
+        foreach ($tasks as $key => $task) {
+            if($task->category->tasks_complete > 9){
+                $tasks[$key]['time'] = gmdate('H:i', intval($task->category->time_avg));
+            }
+            else{
+                $tasks[$key]['time'] = $task->category->time;
+            }
+        }
+
         $time = $project->getTimeSum();
         return view('project.edit', compact('project', 'time'));
+    }
+
+    public function editProject($id)
+    {
+        $project = Project::query()->findOrFail($id);
+        return view('project.editproject', compact('project'));
+    }
+
+    public function editProjectStore(Request $request)
+    {
+
     }
 
     /**
@@ -97,4 +121,8 @@ class ProjectController extends MainController
         $project->delete();
         return redirect()->route('projects.index');
     }
+
 }
+
+
+

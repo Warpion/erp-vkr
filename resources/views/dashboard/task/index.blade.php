@@ -16,6 +16,11 @@
                 <form action="{{ route('taskUser.orderTask', [$task->id]) }}" method="post">
                     @csrf
                     @method('PATCH')
+                    <br>
+                    Цена задания: {{ $task->setPrice }}
+                    <br><br>
+                    Приоритет: {{ $task->urgency }}
+                    <br><br>
                     <button type="submit">Бронировать задание</button>
                 </form>
             </li>

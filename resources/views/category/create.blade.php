@@ -16,6 +16,8 @@
     <br><br>
     <input type="number" name="rating" placeholder="Навык сотрудника">
     <br><br>
+    <input type="number" name="max_rating" placeholder="Максимальный навык" value="0">
+    <br><br>
     <input type="time" name="time">
     <br><br>
     <button type="submit">Создать категорию</button>

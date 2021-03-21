@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('title')->unique();
             $table->integer('price');
             $table->integer('rating');
+            $table->integer('max_rating')->default(0);
             $table->integer('time');
             $table->integer('time_avg')->default(0);
             $table->integer('tasks_complete')->default(0);

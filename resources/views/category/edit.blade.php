@@ -18,6 +18,8 @@
     <br><br>
     <input type="number" name="rating" value="{{ $category->rating }}" placeholder="Навык сотрудника">
     <br><br>
+    <input type="number" name="max_rating" value="{{ $category->max_rating }}" placeholder="Максимальный навык">
+    <br><br>
     <input type="time" name="time" value="{{ $category->time }}">
     <br><br>
     <button type="submit">Изменить категорию</button>

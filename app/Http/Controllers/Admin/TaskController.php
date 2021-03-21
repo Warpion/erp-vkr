@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\TaskRequest;
 use App\Http\Requests\TaskUpdateRequest;
 use App\Models\Category;
+use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,8 +29,11 @@ class TaskController extends MainController
     public function create($id)
     {
         $task = Task::findOrFail($id);
+        $project= Project::query()->select('title')->find($id);
         $categories = Category::all();
-        return view('task.add', ['id' => $id, 'categories' => $categories, 'task' => $task]);
+        return view('task.add', ['id' => $id, 'categories' => $categories,
+            'task' => $task, 'projectTitle' => $project->title,
+        ]);
     }
 
     /**
