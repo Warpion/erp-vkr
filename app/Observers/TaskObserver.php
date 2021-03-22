@@ -27,6 +27,7 @@ class TaskObserver
      */
     public function updated(Task $task)
     {
+
         if($task->accept === 1) {
             $timeAvg = $task->category->time_avg;
             $taskDuration = strtotime($task->done_at, 0) - strtotime($task->started_at, 0);
@@ -38,7 +39,7 @@ class TaskObserver
             $category->update(['tasks_complete' => $tasksDone, 'time_avg' => $newTime]);
 
             $user = User::query()->find($task->user_id);
-            $newRating = setTaskPrice($category->rating, $category->price, $user->rating);
+            $newRating = $user->rating + setTaskPrice($category->rating, $category->price, $user->rating, $task->project->urgency);
             $user->update(['rating' => $newRating]);
         }
         if($task->accept === 0) {

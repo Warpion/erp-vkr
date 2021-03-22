@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,12 +36,8 @@ class ProjectController extends MainController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProjectRequest $request)
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'urgency' => 'required|digits_between:1,3',
-        ]);
         $project = new Project([
             'title' => $request->title,
             'urgency' => $request->urgency,
@@ -48,7 +45,7 @@ class ProjectController extends MainController
         ]);
         $project->save();
 
-        return redirect()->route('projects.edit', [$project->id]);
+        return redirect()->route('projects.edit', ["id" => $project->id, "project" => $project]);
     }
 
     /**
@@ -92,9 +89,11 @@ class ProjectController extends MainController
         return view('project.editproject', compact('project'));
     }
 
-    public function editProjectStore(Request $request)
+    public function editProjectStore(ProjectRequest $request, $id)
     {
-
+        $project = Project::find($id);
+        $project->update($request->all());
+        return redirect()->route('projects.edit', [$project->id]);
     }
 
     /**
