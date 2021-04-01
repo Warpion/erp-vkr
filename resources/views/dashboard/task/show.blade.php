@@ -1,24 +1,33 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Задание: {{ $task->title }}</title>
-</head>
-<body>
-    <h1>Задание: {{ $task->title }}</h1>
+@extends('layouts.dashboard')
 
-    <p>{{ $task->description }}</p>
-    <p>Цена выполнения: {{ $task->category->price }}</p>
-    <p>Начало выполнения: {{ $start }}</p>
+@section('title', 'Задание '.$task->title)
 
-    <form action="{{ $formAction }}" method="post">
-        @csrf
-        @method('PATCH')
-        <button type="submit">{{ $buttonContent }}</button>
-    </form>
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="title">Задание: {{ $task->title }}</h1>
+            </div>
+            <div class="col-12">
+                <div class="current-task-item">
+                    <span class="area-label">Описание</span>
+                    <p class="task-text">{{ $task->description }}</p>
+                    <span class="area-label">Начало выполнения</span>
+                    <p class="task-text">@if(strlen($start) > 1){{ $start }} @else — — — @endif</p>
+                    <span class="area-label">Вознаграждение</span>
+                    <div class="task-price single-task-price">
+                        {{ $task->setPrice }}
+                    </div>
+                    <form action="{{ $formAction }}" method="post">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="button margin-0">{{ $buttonContent }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-</body>
-</html>
+
+
+@endsection

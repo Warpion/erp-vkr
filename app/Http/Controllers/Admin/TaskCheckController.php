@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskCheckController extends Controller
 {
@@ -15,8 +16,11 @@ class TaskCheckController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $role = ($user->role < 3)? true : false;
+
         $tasks = Task::query()->whereNotNull('done_at')->whereNull('accept')->with('user')->get();
-        return view('task.check', compact('tasks'));
+        return view('task.check', compact('tasks', 'user', 'role'));
     }
 
 

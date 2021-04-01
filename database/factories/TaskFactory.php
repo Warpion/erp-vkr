@@ -12,5 +12,6 @@ $factory->define(\App\Models\Task::class, function (Faker $faker) {
         'title' => $faker->words(3, true),
         'user_id' => $faker->numberBetween(2, 5),
         'description' => $faker->text('150'),
+        'order' => $faker->numberBetween(1, 5),
     ];
 });

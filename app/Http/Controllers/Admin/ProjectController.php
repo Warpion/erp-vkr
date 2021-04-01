@@ -16,8 +16,12 @@ class ProjectController extends MainController
      */
     public function index()
     {
-        $projects = Project::orderBy('id', 'desc')->paginate(5);
-        return view('project.index', compact('projects'));
+        $projects = Project::orderBy('id', 'desc')->paginate(8);
+
+        $user = Auth::user();
+        $role = ($user->role < 3)? true : false;
+
+        return view('project.index', compact('projects', 'user', 'role'));
     }
 
     /**
@@ -27,7 +31,10 @@ class ProjectController extends MainController
      */
     public function create()
     {
-        return view('project.create');
+        $user = Auth::user();
+        $role = ($user->role < 3)? true : false;
+
+        return view('project.create', compact('user', 'role'));
     }
 
     /**
@@ -68,25 +75,28 @@ class ProjectController extends MainController
     public function edit($id)
     {
         $project =  Project::findOrFail($id);
-        $tasks = $project->tasks;
 
-        foreach ($tasks as $key => $task) {
-            if($task->category->tasks_complete > 9){
-                $tasks[$key]['time'] = gmdate('H:i', intval($task->category->time_avg));
-            }
-            else{
-                $tasks[$key]['time'] = $task->category->time;
-            }
-        }
+        $user = Auth::user();
+        $role = ($user->role < 3)? true : false;
 
-        $time = $project->getTimeSum();
-        return view('project.edit', compact('project', 'time'));
+        $totalTime = $project->getTimeSum();
+        $tasks = $project->getTasksChartInfo();
+
+        $time = gmdate('H:i:s', $totalTime);
+
+        $maxTime = intval(floor($totalTime / 3600) );
+
+        return view('project.edit', compact('project', 'time', 'user', 'role', 'tasks', 'maxTime'));
     }
 
     public function editProject($id)
     {
         $project = Project::query()->findOrFail($id);
-        return view('project.editproject', compact('project'));
+
+        $user = Auth::user();
+        $role = ($user->role < 3)? true : false;
+
+        return view('project.editproject', compact('project', 'user', 'role'));
     }
 
     public function editProjectStore(ProjectRequest $request, $id)

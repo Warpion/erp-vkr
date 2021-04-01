@@ -1,5 +1,7 @@
 const mix = require('laravel-mix');
 
+require('laravel-mix-clean-css');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -11,5 +13,17 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.disableNotifications();
+
+mix.sass('resources/scss/style.scss', 'styles')
+    .cleanCss({
+        level: 2,
+    });
+
+mix.js([
+    'resources/js/script.js',
+], 'public/js/script.js');
+
+
+mix.browserSync('erp.loc');
+

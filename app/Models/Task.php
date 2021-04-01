@@ -34,7 +34,8 @@ class Task extends Model
 
         $tasks = $this::query()
             ->select('categories.rating', 'categories.price',
-                'tasks.created_at', 'categories.max_rating', 'tasks.title', 'tasks.user_id', 'tasks.id', 'projects.urgency')
+                'tasks.created_at', 'categories.max_rating', 'tasks.title', 'tasks.user_id', 'tasks.id', 'tasks.description',
+                'projects.urgency')
             ->join('categories','categories.id', '=', 'tasks.category_id')
             ->join('projects', 'projects.id', '=', 'tasks.project_id')
 

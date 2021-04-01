@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends MainController
 {
@@ -15,8 +16,12 @@ class CategoryController extends MainController
      */
     public function index()
     {
-        $categories = Category::orderBy('id','desc')->paginate(5);
-        return view('category.index', compact('categories'));
+        $categories = Category::orderBy('id','desc')->paginate(8);
+
+        $user = Auth::user();
+        $role = ($user->role < 3)? true : false;
+
+        return view('category.index', compact('categories', 'user', 'role'));
     }
 
     /**
@@ -26,7 +31,10 @@ class CategoryController extends MainController
      */
     public function create()
     {
-        return view('category.create');
+        $user = Auth::user();
+        $role = ($user->role < 3)? true : false;
+
+        return view('category.create', compact('user', 'role'));
     }
 
     /**
@@ -66,7 +74,10 @@ class CategoryController extends MainController
      */
     public function edit(Category $category)
     {
-        return view('category.edit', compact('category'));
+        $user = Auth::user();
+        $role = ($user->role < 3)? true : false;
+
+        return view('category.edit', compact('category', 'user', 'role'));
     }
 
     /**

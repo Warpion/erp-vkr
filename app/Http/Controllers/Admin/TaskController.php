@@ -31,8 +31,12 @@ class TaskController extends MainController
         $task = Task::findOrFail($id);
         $project= Project::query()->select('title')->find($id);
         $categories = Category::all();
+
+        $user = Auth::user();
+        $role = ($user->role < 3)? true : false;
+
         return view('task.add', ['id' => $id, 'categories' => $categories,
-            'task' => $task, 'projectTitle' => $project->title,
+            'task' => $task, 'projectTitle' => $project->title, 'user' => $user, 'role' => $role
         ]);
     }
 
@@ -78,7 +82,11 @@ class TaskController extends MainController
     {
         $categories = Category::all();
         $task = Task::findOrFail($id);
-        return view('task.edit', compact('id','task', 'categories'));
+
+        $user = Auth::user();
+        $role = ($user->role < 3)? true : false;
+
+        return view('task.edit', compact('id','task', 'categories', 'user', 'role'));
     }
 
     /**

@@ -24,7 +24,7 @@ class Category extends Model
 
     public function getTimeAttribute($value)
     {
-        return gmdate('H:i', $value) ;
+        return gmdate('H:i', $value);
     }
 
 }

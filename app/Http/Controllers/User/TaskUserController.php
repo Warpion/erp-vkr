@@ -39,7 +39,8 @@ class TaskUserController extends Controller
     public function show($id)
     {
         $task = Task::findOrFail($id);
-
+        $user = Auth::user();
+        $role = ($user->role < 3)? true : false;
 
         if($task->started_at !== null){
             $buttonContent = 'Задание выполнено';
@@ -51,7 +52,8 @@ class TaskUserController extends Controller
             $start = null;
         }
 
+        $task->setPrice = setTaskPrice($task->category->rating, $task->category->price, $user->rating, $task->project->urgency);
 
-        return view('dashboard.task.show', compact('task', 'buttonContent', 'formAction', 'start'));
+        return view('dashboard.task.show', compact('task', 'buttonContent', 'formAction', 'start', 'user', 'role'));
     }
 }

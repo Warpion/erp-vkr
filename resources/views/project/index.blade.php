@@ -1,26 +1,36 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Project List</title>
-</head>
-<body>
-<a href="{{ route('logout') }}">Выйти</a>
-<br><br>
-<a href="{{ route('projects.create') }}">Добавить Проект</a>
-    @foreach($projects as $project)
-        <div class="item">
-            <h3>{{ $project->title }}</h3>
-            <p>{{ $project->getTimeSum() }}</p>
-            <a href="{{ route('projects.edit' , ['project' => $project->id]) }}">Подробнее</a>
+@extends('layouts.dashboard')
+
+@section('title', 'Проекты')
+
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="title">Проекты</h1>
+            </div>
+            <div class="col-12">
+                <a href="{{ route('projects.create') }}" class="button category-button">Добавить Проект</a>
+                <ul class="category-list">
+                    @foreach($projects as $project)
+                        <li class="category-item">
+                            <a href="{{ route('projects.edit' , ['project' => $project->id]) }}">
+                                <div class="category-item-content">
+                                    <p>{{ $project->title }}</p>
+                                    <p>@php echo gmdate('H:i', $project->getTimeSum()) @endphp</p>
+                                </div>
+                            </a>
+                        </li>
+                        <br>
+                    @endforeach
+                </ul>
+
+
+            </div>
+            <div class="col-12">
+                {{ $projects->links() }}
+            </div>
         </div>
-        <br>
-    @endforeach
+    </div>
 
-    {{ $projects->links() }}
 
-</body>
-</html>
+@endsection

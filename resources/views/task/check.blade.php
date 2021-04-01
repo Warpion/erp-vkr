@@ -1,40 +1,49 @@
-<!doctype html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <ul>
-        @foreach($tasks as $task)
-            <li>
-                {{ $task->id }}. {{ $task->title }} <br>
-                Выполнил: {{ $task->user->name }}
-                <br><br>
-                <form action="{{ route('task.accept', [$task->id]) }}" method="post">
-                    @method('PATCH')
-                    @csrf
-                    <button type="submit">Приянять выполнение задания</button>
-                </form>
-                <br>
-                <form action="{{ route('task.decline', [$task->id]) }}" method="post">
-                    @method('PATCH')
-                    @csrf
-                    <button type="submit">Отказ в выполнении задания</button>
-                </form>
-                <br>
-                <form action="{{ route('task.restart', [$task->id]) }}" method="post">
-                    @method('PATCH')
-                    @csrf
-                    <button type="submit">Отказать и запустить задание</button>
-                </form>
-            </li>
-            <br>
-        @endforeach
-    </ul>
-</body>
-</html>
+@extends('layouts.dashboard')
 
+@section('title', 'Выполненные задания')
+
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="title">Выполненные задания</h1>
+            </div>
+            <div class="col-12">
+                <ul>
+                    @foreach($tasks as $task)
+                        <li>
+                            <div class="single-task-check">
+                            <h2 class="task-title">{{ $task->title }}</h2>
+                            <span class="area-label">Тип задания</span>
+                            <p class="task-text">{{ $task->category->title}}</p>
+                            <span class="area-label">Описание</span>
+                            <p class="task-text">{{ $task->description}}</p>
+                            <span class="area-label">Выполнил</span>
+                            <p class="task-text">{{ $task->user->name }}</p>
+                            <form action="{{ route('task.accept', [$task->id]) }}" method="post">
+                                @method('PATCH')
+                                @csrf
+                                <button type="submit" class="button margin-0 button-accept">Приянять выполнение задания</button>
+                            </form>
+                            <br>
+                            <form action="{{ route('task.decline', [$task->id]) }}" method="post">
+                                @method('PATCH')
+                                @csrf
+                                <button type="submit" class="button margin-0">Отказ в выполнении задания</button>
+                            </form>
+                            <br>
+                            <form action="{{ route('task.restart', [$task->id]) }}" method="post">
+                                @method('PATCH')
+                                @csrf
+                                <button type="submit" class="button margin-0 button-hard-decline">Отказать и запустить задание</button>
+                            </form>
+                            </div>
+                        </li>
+
+                        <br>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </div>
+@endsection

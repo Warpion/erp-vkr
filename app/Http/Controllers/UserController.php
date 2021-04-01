@@ -112,7 +112,7 @@ class UserController extends Controller
         ]) ) {
             return redirect()->route('dashboard');
         }
-
+        return redirect()->back()->withErrors('Почта или пароль не верны');
     }
 
     public function logout()
