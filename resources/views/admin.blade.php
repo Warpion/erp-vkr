@@ -8,7 +8,7 @@
             <div class="col-12">
                 <h1 class="title">Админ панель</h1>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-6">
                 <a href="{{ route('projects.index') }}" class="admin-item-link">
                     <div class="admin-item">
                         <img src="{{ asset('public/img/admin/project.svg') }}" alt="Проект">
@@ -16,7 +16,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-6">
                 <a href="{{ route('categories.index') }}">
                     <div class="admin-item">
                         <img src="{{ asset('public/img/admin/categories.svg') }}" alt="Группа">
@@ -24,11 +24,19 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-6">
                 <a href="{{ route('task.check') }}">
                     <div class="admin-item">
                         <img src="{{ asset('public/img/admin/tasks.svg') }}" alt="Задания">
                         Выполненные задания
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <a href="{{ route('user.admin') }}">
+                    <div class="admin-item">
+                        <img src="{{ asset('public/img/admin/employee.svg') }}" alt="История">
+                        Сотрудники
                     </div>
                 </a>
             </div>

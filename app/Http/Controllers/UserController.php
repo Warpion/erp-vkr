@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $role = ($user->role < 3)? true : false;
+
+        $tasksDone = Task::query()->select(['title', 'done_at', 'profit'])
+            ->where('user_id', '=', $user->id )->whereNotNull('accept')
+            ->orderBy('done_at', 'DESC')->paginate(10);
+
+        return view('user.index', compact(['user', 'role', 'tasksDone']));
     }
 
     /**
@@ -79,9 +87,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $user = Auth::user();
+        $user->update($request->all());
+        return redirect()->route('user');
+
     }
 
     /**

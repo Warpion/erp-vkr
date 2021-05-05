@@ -62,7 +62,7 @@
                         <span class="area-label">Описание</span>
                         <p class="task-text">{{ $task['description'] }}</p>
                         <span class="area-label">Время выполнения</span>
-                        <p class="task-text">{{ $task['time'] }}</p>
+                        <p class="task-text">@php echo gmdate('H:i', $task['time']) @endphp</p>
                         <span class="more">Подробнее</span>
                     </div>
                     </a>

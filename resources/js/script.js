@@ -3,7 +3,7 @@ function createChart(e) {
     const tasks = document.querySelectorAll(".chart-bars li");
     const daysArray = [...days];
 
-    let dump = document.getElementById('dump');
+    // let dump = document.getElementById('dump');
 
     // dump.innerHTML = '00½'.slice(0, -1);
 
@@ -48,3 +48,23 @@ function createChart(e) {
 
 window.addEventListener("load", createChart);
 window.addEventListener("resize", createChart);
+
+window.onload = function(){
+
+
+    let bars = document.querySelector('.bars');
+    let navigation = document.querySelector('.navigation');
+    let darkBack = document.querySelector('.dark-back');
+    let exit = document.querySelector('.exit');
+
+    bars.onclick = function(e) {
+        navigation.classList.add('show-navigation');
+        darkBack.classList.add('show-dark-back');
+    }
+
+    darkBack.onclick = exit.onclick = function(e) {
+        navigation.classList.remove('show-navigation');
+        darkBack.classList.remove('show-dark-back');
+    }
+
+}

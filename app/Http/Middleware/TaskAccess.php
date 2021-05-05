@@ -20,6 +20,10 @@ class TaskAccess
         $userId = Auth::user()->id;
         $taskId = intval($request->id);
         $taskUserId = Task::query()->find($taskId)->user_id;
+        $task = Task::query()->findOrFail($taskId);
+
+        if(isset($task->done_at)) return abort(404);
+
         if($userId === $taskUserId){
             return $next($request);
         }

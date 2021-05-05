@@ -34,6 +34,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
     Route::patch('/task-check/{id}/accept', 'TaskCheckController@accept')->name('task.accept');
     Route::patch('/task-check/{id}/decline', 'TaskCheckController@decline')->name('task.decline');
     Route::patch('/task-check/{id}/restart', 'TaskCheckController@restart')->name('task.restart');
+
+    Route::get('/users', 'UserAdminController@index')->name('user.admin');
+    Route::get('/users/{id}', 'UserAdminController@show')->name('user.admin.show');
+
+    Route::patch('/task/{id}/delete', 'TaskCheckController@deleteResult')->name('task.deleteResult');
+
 });
 
 Route::get('/admin', 'Admin\MainController@index')->middleware('admin')->name('admin');
@@ -44,8 +50,11 @@ Route::group(['middleware' => 'login'], function() {
 
     Route::get('/login', 'UserController@loginForm')->name('login.create');
     Route::post('/login', 'UserController@login')->name('login');
+
 });
 
+Route::get('/user', 'UserController@index')->name('user')->middleware('user');
+Route::patch('/user/update', 'UserController@update')->name('user.update')->middleware('user');
 
 Route::get('/logout', 'UserController@logout')->name('logout')->middleware('logout');
 
@@ -58,6 +67,7 @@ Route::group(['namespace' => 'User', 'middleware' => 'user'], function() {
     Route::patch('/dashboard/tasks/{id}/order', 'TaskUserController@orderTask')->name('taskUser.orderTask');
     Route::patch('/dashboard/tasks/{id}/start', 'TaskUserController@startTask')->name('taskUser.startTask')->middleware('task.access');
     Route::patch('/dashboard/tasks/{id}/done', 'TaskUserController@doneTask')->name('taskUser.doneTask')->middleware('task.access');
+
 });
 
 

@@ -97,6 +97,8 @@ body {
     cursor: pointer;
     font-family: 'Jost', sans-serif;
     outline: none;
+    display: flex;
+    justify-content: center;
     &:hover {
         transition: .5s;
         background-color: #5387fa;
@@ -116,7 +118,7 @@ body {
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    width: 350px;
+    width: 500px;
     border-radius: 5px;
     box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.03);
     position: relative;
@@ -174,6 +176,17 @@ body {
         color: #777;
     }
 }
+.dashboard-back-url {
+    position: absolute;
+    top: 120px;
+    right: 10px;
+    color: #333;
+    display: flex;
+    width: 75px;
+    &:hover {
+        color: #777;
+    }
+}
 header {
     background-color: #192233;
     height: 80px;
@@ -210,7 +223,7 @@ header {
     }
     a {
         color: #fff;
-        transtition: .3s;
+        transition: .3s;
         &:hover {
             color: #5387fa;
             transition: .3s;
@@ -263,7 +276,7 @@ header {
         }
     }
 }
-.current-task-item {
+.current-task-item, .item-block {
     box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.03);
     padding: 30px;
     background-color: #fff;
@@ -276,6 +289,9 @@ header {
     &:hover {
         box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.15);
         transition: .5s;
+    }
+    .button {
+        align-self: flex-start;
     }
 }
 .current-task-link {
@@ -346,7 +362,7 @@ header {
     color: #555;
     margin-bottom: 10px;
 }
-.task-text{
+.task-text, .item-p{
     font-size: 18px;
     margin-bottom: 30px;
 }
@@ -403,6 +419,7 @@ header {
     font-size: 21px;
     flex-direction: row;
     align-items: center;
+    margin-bottom: 30px;
     border-radius: 5px;
     box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.03);
     transition: .3s;
@@ -425,6 +442,7 @@ header {
     padding: 30px;
     .button {
         width: 350px;
+        justify-content: center;
     }
     .button-accept {
         background-color: #54c959;
@@ -489,7 +507,7 @@ header {
     flex-direction: row;
     margin-top: 30px;
     margin-bottom: 30px;
-
+    flex-wrap: wrap;
     a {
         color: #fff;
     }
@@ -497,6 +515,7 @@ header {
     .page-item {
         height: 40px;
         width: 40px;
+        margin-bottom: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -582,6 +601,7 @@ header {
     display: flex;
     flex-direction: row;
     margin-top: 15px;
+    flex-wrap: wrap;
     .button {
         display: block;
         margin-left: 0px;
@@ -708,4 +728,23 @@ a {
         opacity: .8;
         transition: .5s;
     }
+}
+.margin-top-30 {
+    margin-top: 30px;
+}
+.margin-bottom-30 {
+    margin-bottom: 30px;
+}
+.user-link {
+    &:hover {
+        color: #222;
+    }
+}
+.mobi-menu-item {
+    display: none;
+    visibility: hidden;
+}
+.exit, .bars, .dark-back {
+    display: none;
+    visibility: hidden;
 }

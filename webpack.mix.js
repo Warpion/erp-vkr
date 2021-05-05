@@ -19,6 +19,10 @@ mix.sass('resources/scss/style.scss', 'styles')
     .cleanCss({
         level: 2,
     });
+mix.sass('resources/scss/media.scss', 'styles')
+    .cleanCss({
+        level: 2,
+    });
 
 mix.js([
     'resources/js/script.js',

@@ -23,15 +23,24 @@
                         <form action="{{ route('tasks.store', ['id' => $id]) }}" method="post">
                             @csrf
                             <label for="title">Название</label>
-                            <input id="title" type="text" name="title" placeholder="Название">
+                            <input id="title" type="text" name="title" placeholder="Название" value="{{ old('title') }}">
                             <input type="hidden" name="project_id" value="{{ $id }}">
                             <label for="order">Порядок выполнения</label>
-                            <input id="order" type="number" name="order" placeholder="Порядок выполнения">
+                            <input id="order" type="number" name="order" placeholder="Порядок выполнения" value="0">
                             <label for="description">Описание</label>
-                            <textarea id="description" name="description" cols="50" rows="8" placeholder="Описание"></textarea>
+                            <textarea id="description" name="description" cols="50" rows="8" placeholder="Описание">{{ old('description') }}</textarea>
+                            <label for="user_id">Исполнитель</label>
+                            <select id="user_id" name="user_id" placeholder="Номер категориинщ">
+                                <option value="" selected>Выберите исполнителя</option>
+                                @foreach($employeeList as $employee)
+                                    <option value="{{ $employee->id }}">
+                                        {{ $employee->name.' '.$employee->rating }}
+                                    </option>
+                                @endforeach
+                            </select>
                             <label for="category_id">Приоритет</label>
                             <select id="category_id" name="category_id" placeholder="Номер категориинщ">
-                                <option value="null">Выберите категорию заданий</option>
+                                <option value="null" selected>Выберите категорию заданий</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}">
                                         {{ $category->title }}

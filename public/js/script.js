@@ -109,9 +109,9 @@ function createChart(e) {
   var days = document.querySelectorAll(".chart-values li");
   var tasks = document.querySelectorAll(".chart-bars li");
 
-  var daysArray = _toConsumableArray(days);
+  var daysArray = _toConsumableArray(days); // let dump = document.getElementById('dump');
+  // dump.innerHTML = '00½'.slice(0, -1);
 
-  var dump = document.getElementById('dump'); // dump.innerHTML = '00½'.slice(0, -1);
 
   tasks.forEach(function (el) {
     var duration = el.dataset.duration.split("-");
@@ -165,6 +165,34 @@ function createChart(e) {
 window.addEventListener("load", createChart);
 window.addEventListener("resize", createChart);
 
+window.onload = function () {
+  var bars = document.querySelector('.bars');
+  var navigation = document.querySelector('.navigation');
+  var darkBack = document.querySelector('.dark-back');
+  var exit = document.querySelector('.exit');
+
+  bars.onclick = function (e) {
+    navigation.classList.add('show-navigation');
+    darkBack.classList.add('show-dark-back');
+  };
+
+  darkBack.onclick = exit.onclick = function (e) {
+    navigation.classList.remove('show-navigation');
+    darkBack.classList.remove('show-dark-back');
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/scss/media.scss":
+/*!***********************************!*\
+  !*** ./resources/scss/media.scss ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
 /***/ }),
 
 /***/ "./resources/scss/style.scss":
@@ -179,14 +207,15 @@ window.addEventListener("resize", createChart);
 /***/ }),
 
 /***/ 0:
-/*!******************************************************************!*\
-  !*** multi ./resources/js/script.js ./resources/scss/style.scss ***!
-  \******************************************************************/
+/*!**********************************************************************************************!*\
+  !*** multi ./resources/js/script.js ./resources/scss/style.scss ./resources/scss/media.scss ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\Users\Warpi\Desktop\openserver\OpenServer\domains\erp.loc\resources\js\script.js */"./resources/js/script.js");
-module.exports = __webpack_require__(/*! C:\Users\Warpi\Desktop\openserver\OpenServer\domains\erp.loc\resources\scss\style.scss */"./resources/scss/style.scss");
+__webpack_require__(/*! C:\Users\Warpi\Desktop\openserver\OpenServer\domains\erp.loc\resources\scss\style.scss */"./resources/scss/style.scss");
+module.exports = __webpack_require__(/*! C:\Users\Warpi\Desktop\openserver\OpenServer\domains\erp.loc\resources\scss\media.scss */"./resources/scss/media.scss");
 
 
 /***/ })

@@ -25,7 +25,7 @@ class TaskObserver
      * @param  \App\Models\Task  $task
      * @return void
      */
-    public function updated(Task $task)
+    public function updating(Task $task)
     {
 
         if($task->accept === 1) {
@@ -39,14 +39,17 @@ class TaskObserver
             $category->update(['tasks_complete' => $tasksDone, 'time_avg' => $newTime]);
 
             $user = User::query()->find($task->user_id);
-            $newRating = $user->rating + setTaskPrice($category->rating, $category->price, $user->rating, $task->project->urgency);
+            $profit = setTaskPrice($category->rating, $category->price, $user->rating, $task->project->urgency);
+            $newRating = $user->rating + $profit;
             $user->update(['rating' => $newRating]);
+            $task->profit = $profit;
         }
         if($task->accept === 0) {
             $user = User::query()->find($task->user_id);
             $category = Category::query()->find($task->category_id);
             $newRating = $user->rating - $category->price;
             $user->update(['rating' => $newRating]);
+            $task->profit = -$category->price;
         }
     }
 

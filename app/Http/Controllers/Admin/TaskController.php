@@ -7,6 +7,7 @@ use App\Http\Requests\TaskUpdateRequest;
 use App\Models\Category;
 use App\Models\Project;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends MainController
@@ -28,15 +29,17 @@ class TaskController extends MainController
      */
     public function create($id)
     {
-        $task = Task::findOrFail($id);
         $project= Project::query()->select('title')->find($id);
         $categories = Category::all();
 
         $user = Auth::user();
         $role = ($user->role < 3)? true : false;
 
+        $employeeList = User::all();
+
         return view('task.add', ['id' => $id, 'categories' => $categories,
-            'task' => $task, 'projectTitle' => $project->title, 'user' => $user, 'role' => $role
+            'projectTitle' => $project->title, 'user' => $user, 'role' => $role,
+            'employeeList' => $employeeList,
         ]);
     }
 
@@ -55,6 +58,7 @@ class TaskController extends MainController
             'description' => $request->description,
             'category_id' => $request->category_id,
             'project_id' => $request->project_id,
+            'user_id' => $request->user_id,
             'order' => $request->order,
         ]);
 

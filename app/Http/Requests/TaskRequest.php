@@ -28,7 +28,8 @@ class TaskRequest extends FormRequest
             'description' => 'max:1024',
             'category_id' => 'required|integer',
             'project_id' => 'required|integer',
-            'order' => 'required|integer|'
+            'user_id' => 'nullable|integer',
+            'order' => 'nullable|integer',
         ];
     }
 }

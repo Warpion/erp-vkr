@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,6 +54,20 @@ class TaskCheckController extends Controller
         ]);
 
         return redirect()->route('task.check');
+    }
+
+    public function deleteResult($id)
+    {
+        $task = Task::query()->find($id);
+        $profit = $task->profit;
+        $userId = $task->user_id;
+        $task->delete();
+
+        $user = User::query()->findOrFail($userId);
+        $newRating = $user->rating - $profit;
+        $user->update(['rating' => $newRating]);
+
+        return redirect()->route('user.admin.show', ['id' => $userId]);
     }
 
     /**

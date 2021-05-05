@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('public/styles/bootstrap-grid.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/styles/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/styles/media.css') }}">
     <title>Регистрация</title>
 </head>
 <body>

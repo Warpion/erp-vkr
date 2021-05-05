@@ -9,7 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('public/styles/bootstrap-grid.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/styles/style.css') }}">
-    <title></title>
+    <link rel="stylesheet" href="{{ asset('public/styles/media.css') }}">
+    <title>ERP</title>
 </head>
 <body>
     <div class="container-fluid welcome-container">

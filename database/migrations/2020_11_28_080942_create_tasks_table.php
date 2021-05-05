@@ -24,6 +24,7 @@ class CreateTasksTable extends Migration
             $table->integer('user_id')->nullable();
             $table->smallInteger('order')->default(0);
             $table->boolean('accept')->nullable();
+            $table->integer('profit')->nullable();
             $table->timestamps();
         });
     }

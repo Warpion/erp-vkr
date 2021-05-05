@@ -12,6 +12,7 @@ class Task extends Model
         'title', 'description', 'category_id',
         'project_id', 'user_id', 'order',
         'started_at', 'done_at', 'accept',
+        'profit',
     ];
 
     public function project()
