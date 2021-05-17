@@ -3,7 +3,7 @@
                           $userRating, $urgency)
     {
         $priceMultiplier = ($urgency == 3) ? 1 : (($urgency == 2) ? 1.1 : 1.2);
-        if( (($catRating - 200) < $userRating) and (($catRating + 200) > $userRating) ) {
+        if( (($catRating - 200) < $userRating) && (($catRating + 200) > $userRating) || $userRating === 0 ) {
             return ceil($catPrice * $priceMultiplier);
         }
         elseif( ($catRating / $userRating) < 0.5){

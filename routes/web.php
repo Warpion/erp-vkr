@@ -20,6 +20,9 @@ Route::get('/', function () {
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admin'], function() {
     Route::resource('/projects', 'ProjectController');
     Route::resource('/tasks', 'TaskController')->except(['create', 'store', 'show']);
+    Route::resource('/skills', 'SkillController')->except(['create', 'edit', 'show', 'update']);
+    Route::get('/users/{id}/skill/{skill_id}', 'UsersSkillController@edit')->name('usersskill.edit');
+    Route::patch('/users/skill/{id}', 'UsersSkillController@update')->name('usersskill.update');
 
     Route::get('/projects/{id}/addTask', 'TaskController@create')->name('tasks.create');
     Route::post('/projects/{id}/addTask', 'TaskController@store')->name('tasks.store');

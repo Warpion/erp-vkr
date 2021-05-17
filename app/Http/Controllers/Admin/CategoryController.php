@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,8 +34,9 @@ class CategoryController extends MainController
     {
         $user = Auth::user();
         $role = ($user->role < 3)? true : false;
+        $skills = Skill::all();
 
-        return view('category.create', compact('user', 'role'));
+        return view('category.create', compact('user', 'role','skills'));
     }
 
     /**
@@ -76,8 +78,9 @@ class CategoryController extends MainController
     {
         $user = Auth::user();
         $role = ($user->role < 3)? true : false;
+        $skills = Skill::all();
 
-        return view('category.edit', compact('category', 'user', 'role'));
+        return view('category.edit', compact('category', 'user', 'role', 'skills'));
     }
 
     /**

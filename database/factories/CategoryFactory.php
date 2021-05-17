@@ -8,6 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(\App\Models\Category::class, function (Faker $faker) {
     return [
         'title' => $faker->words(2, true),
+        'skill_id' => $faker->numberBetween(1, 30),
         'price' => $faker->numberBetween(10, 20),
         'rating' => $faker->numberBetween(1000, 2000),
         'time' => gmdate('H:i', $faker->numberBetween(1000, 10000)),

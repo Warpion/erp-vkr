@@ -19,11 +19,13 @@ class UserController extends Controller
         $user = Auth::user();
         $role = ($user->role < 3)? true : false;
 
+        $userSkills = $user->skills;
+
         $tasksDone = Task::query()->select(['title', 'done_at', 'profit'])
             ->where('user_id', '=', $user->id )->whereNotNull('accept')
             ->orderBy('done_at', 'DESC')->paginate(10);
 
-        return view('user.index', compact(['user', 'role', 'tasksDone']));
+        return view('user.index', compact(['user', 'role', 'tasksDone', 'userSkills']));
     }
 
     /**
@@ -91,6 +93,8 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $user->update($request->all());
+
+
         return redirect()->route('user');
 
     }

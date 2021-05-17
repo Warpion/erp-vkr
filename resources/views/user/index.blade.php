@@ -24,6 +24,21 @@
                 </div>
             </div>
             <div class="col-12">
+                <h2 class="title">Навыки</h2>
+            </div>
+            <div class="col-12">
+                <ul class="category-list">
+                    @foreach($userSkills as $skill)
+                        <li class="category-item">
+                            <div class="category-item-content">
+                                <p>{{ $skill->skill->skill }}</p>
+                                <p>Квалификация: {{ $skill->rating }}</p>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+            <div class="col-12">
                 <h2 class="title margin-top-30">История заданий</h2>
             </div>
             @foreach($tasksDone as $task)

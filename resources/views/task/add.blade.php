@@ -38,9 +38,9 @@
                                     </option>
                                 @endforeach
                             </select>
-                            <label for="category_id">Приоритет</label>
+                            <label for="category_id">Тип задания</label>
                             <select id="category_id" name="category_id" placeholder="Номер категориинщ">
-                                <option value="null" selected>Выберите категорию заданий</option>
+                                <option value="null" selected>Выберите группу заданий</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}">
                                         {{ $category->title }}

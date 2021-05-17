@@ -28,6 +28,7 @@ class CategoryRequest extends FormRequest
             'price' => 'required|integer',
             'rating' => 'required|integer',
             'max_rating' => 'required|integer',
+            'skill_id' => 'nullable|integer',
             'time'  => 'required|date_format:H:i',
         ];
     }

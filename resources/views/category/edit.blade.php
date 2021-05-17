@@ -9,6 +9,15 @@
                 <h1 class="title">Редактировать группу  {{$category->title}}</h1>
             </div>
             <div class="col-12">
+                @if($errors->any())
+                    <ul class="error">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
+            </div>
+            <div class="col-12">
                 <div class="edit-form">
                     <div class="edit-form-left">
                         <form action="{{ route('categories.update', [$category]) }}" method="post">
@@ -16,6 +25,13 @@
                             @method('PUT')
                             <label for="title">Название группы</label>
                             <input id="title" type="text" name="title" value="{{ $category->title }}" placeholder="Название группы">
+                            <label for="skill">Навык</label>
+                            <select name="skill_id" id="skill">
+                                <option value="">Нет навыка</option>
+                                @foreach($skills as $skill)
+                                    <option value="{{$skill->id}}" @if($skill->id == $category->skill_id) selected @endif>{{$skill->skill}}</option>
+                                @endforeach
+                            </select>
                             <label for="price">Вознаграждение</label>
                             <input id="price" type="number" name="price" value="{{ $category->price }}" placeholder="Вознаграждение">
                             <label for="rating">Навык сотрудника</label>

@@ -16,6 +16,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('title')->unique();
+            $table->integer('skill_id')->nullable();
             $table->integer('price');
             $table->integer('rating');
             $table->integer('max_rating')->default(0);

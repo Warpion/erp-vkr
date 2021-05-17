@@ -35,8 +35,16 @@
             <div class="col-lg-4 col-md-6">
                 <a href="{{ route('user.admin') }}">
                     <div class="admin-item">
-                        <img src="{{ asset('public/img/admin/employee.svg') }}" alt="История">
+                        <img src="{{ asset('public/img/admin/employee.svg') }}" alt="Сотрудники">
                         Сотрудники
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <a href="{{ route('skills.index') }}">
+                    <div class="admin-item">
+                        <img src="{{ asset('public/img/admin/skill.svg') }}" alt="Навыки">
+                        Навыки
                     </div>
                 </a>
             </div>

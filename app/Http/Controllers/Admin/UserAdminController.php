@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Skill;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -56,11 +57,14 @@ class UserAdminController extends Controller
     {
         $user = Auth::user();
         $role = ($user->role < 3)? true : false;
+        $employee = User::query()->findOrFail($id);
+        $optionSkills = Skill::all();
+        $userSkills = $employee->skills;
 
         $employeeTasks = Task::query()->where('user_id', '=', $id)->whereNotNull('profit')
             ->orderBy('updated_at', 'DESC')->paginate(20);
 
-        return view('dashboard.user.show', compact(['user', 'role', 'employeeTasks']));
+        return view('dashboard.user.show', compact(['user', 'role', 'employeeTasks', 'optionSkills', 'userSkills', 'employee']));
     }
 
     /**

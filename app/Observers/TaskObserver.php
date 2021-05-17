@@ -3,8 +3,10 @@
 namespace App\Observers;
 
 use App\Models\Category;
+use App\Models\Skill;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Usersskill;
 
 class TaskObserver
 {
@@ -43,6 +45,24 @@ class TaskObserver
             $newRating = $user->rating + $profit;
             $user->update(['rating' => $newRating]);
             $task->profit = $profit;
+
+            $userSkill = Usersskill::query()->where('user_id', '=', $task->user_id)
+                ->where('skill_id', '=', $category->skill_id);
+
+            if($userSkill->count() === 1) {
+                $skill = $userSkill->first();
+                $skill->update(['rating'=> $skill->rating + $profit]);
+            }
+            else {
+                Usersskill::query()->create([
+                    'user_id' => $task->user_id,
+                    'skill_id' => $category->skill_id,
+                    'rating' => $profit,
+                ]);
+            }
+
+
+
         }
         if($task->accept === 0) {
             $user = User::query()->find($task->user_id);
@@ -50,6 +70,23 @@ class TaskObserver
             $newRating = $user->rating - $category->price;
             $user->update(['rating' => $newRating]);
             $task->profit = -$category->price;
+
+            $userSkill = Usersskill::query()->where('user_id', '=', $task->user_id)
+                ->where('skill_id', '=', $category->skill_id);
+
+            if($userSkill->count() === 1) {
+                $skill = $userSkill->first();
+                $skillRating = ($skill->rating - $category->price) > 0 ? $skill->rating - $category->price : 0;
+                $skill->update(['rating'=> $skillRating]);
+            }
+            else {
+                Usersskill::query()->create([
+                    'user_id' => $task->user_id,
+                    'skill_id' => $category->skill_id,
+                    'rating' => 0,
+                ]);
+            }
+
         }
     }
 
